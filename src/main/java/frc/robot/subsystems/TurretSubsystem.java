@@ -15,6 +15,7 @@ import static edu.wpi.first.units.Units.Volts;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.controller.ArmFeedforward;
+import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
@@ -43,18 +44,18 @@ public class TurretSubsystem extends SubsystemBase
 
   private final double MAX_ONE_DIR_FOV = 90; // degrees
   public final Translation3d turretTranslation = new Translation3d(-0.205, 0.0, 0.375);
-  private final TalonFX                   turretMotor       = new TalonFX(1);//, MotorType.kBrushless);
+  private final TalonFX                   turretMotor       = new TalonFX(10);//, MotorType.kBrushless);
   private final SmartMotorControllerConfig motorConfig      = new SmartMotorControllerConfig(this)
-      .withClosedLoopController(4, 0, 0, DegreesPerSecond.of(180), DegreesPerSecondPerSecond.of(90)) //TODO You need to tune kP
-      .withSoftLimit(Degrees.of(-30), Degrees.of(100))
+      .withClosedLoopController(15.0, 0, 0, DegreesPerSecond.of(2440), DegreesPerSecondPerSecond.of(2440)) //TODO You need to tune kP
+      .withSoftLimit(Degrees.of(-MAX_ONE_DIR_FOV), Degrees.of(MAX_ONE_DIR_FOV))
       .withGearing(new MechanismGearing(30.0))
-      .withIdleMode(MotorMode.BRAKE)
+      .withIdleMode(MotorMode.COAST)
       .withTelemetry("TurretMotor", TelemetryVerbosity.HIGH)
       .withStatorCurrentLimit(Amps.of(10))
       .withMotorInverted(false)
       .withClosedLoopRampRate(Seconds.of(0.1))
       .withOpenLoopRampRate(Seconds.of(0.1))
-      .withFeedforward(new ArmFeedforward(0, 0, 0, 0))
+      .withFeedforward(new SimpleMotorFeedforward(0, 7.5, 0))
       .withControlMode(ControlMode.CLOSED_LOOP);
   private final SmartMotorController       motor            = new TalonFXWrapper(turretMotor,
                                                                                   DCMotor.getKrakenX60(1),
@@ -74,7 +75,7 @@ public class TurretSubsystem extends SubsystemBase
   private final Pivot                      turret           = new Pivot(m_config);
 
   // Robot to turret transform, from center of robot to turret.
-  private final Transform3d roboToTurret = new Transform3d(Feet.of(-1.5), Feet.of(0), Feet.of(0.5), Rotation3d.kZero); //likely -0.205, 0.0, 0.375, 180.0
+  private final Transform3d roboToTurret = new Transform3d(Feet.of(-1.5), Feet.of(0), Feet.of(0.5), Rotation3d.kZero); //likely -0.205, 0.0, 0.375, 0.0
 
   public TurretSubsystem()
   {

@@ -1,6 +1,7 @@
 package frc.robot.commands;
 
 import static edu.wpi.first.units.Units.Feet;
+import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.Milliseconds;
 import static edu.wpi.first.units.Units.RPM;
@@ -17,11 +18,16 @@ import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.interpolation.InterpolatingTreeMap;
 import edu.wpi.first.math.interpolation.InverseInterpolator;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.TurretSubsystem;
 import java.util.function.Supplier;
@@ -43,6 +49,7 @@ public class ShootOnTheMoveCommand extends Command
   // Private Variables
   private              TurretSubsystem                          turret;
   private              ShooterSubsystem                         shooterSubsystem;
+  private              HopperSubsystem                          hopper;
   private              Supplier<ChassisSpeeds>                  _fieldRelativeVelocity;
   private              Supplier<Pose2d>                         estimatedPose;
   private              Field2d                                  debugField             = new Field2d();
@@ -54,8 +61,7 @@ public class ShootOnTheMoveCommand extends Command
   // Tuning Constants
   private final Debouncer shootingDebounce = new Debouncer(0.1, DebounceType.kFalling);
   private final double    phaseDelay       = 0.05;
-  private       Distance  minDistance      = Feet.of(1);
-  private       Distance  maxDistance      = Meters.of(5);
+
 
   static
   {
@@ -82,14 +88,14 @@ public class ShootOnTheMoveCommand extends Command
     timeOfFlightMap.put(1.38, 0.90);
   }
 
-  public ShootOnTheMoveCommand(TurretSubsystem turret, ShooterSubsystem shooter,
-                               SwerveDrive swerveDrive)
+  public ShootOnTheMoveCommand(TurretSubsystem turret, ShooterSubsystem shooter, HopperSubsystem hopper,
+                               CommandSwerveDrivetrain swerveDrive)
   {
     SmartDashboard.putData("ShootOnTheMoveField", debugField);
     estimatedPose = () -> {
       // Calculate estimated pose while accounting for phase delay
-      ChassisSpeeds robotRelativeVelocity = swerveDrive.getRobotRelativeSpeed();
-      var           robotPose             = swerveDrive.getPose();
+      ChassisSpeeds robotRelativeVelocity = swerveDrive.getState().Speeds;
+      var           robotPose             = swerveDrive.getState().Pose;
       robotPose = robotPose.exp(
           new Twist2d(
               robotRelativeVelocity.vxMetersPerSecond * phaseDelay,
@@ -101,7 +107,7 @@ public class ShootOnTheMoveCommand extends Command
     };
     _fieldRelativeVelocity = swerveDrive::getFieldRelativeSpeed;
 
-    addRequirements(turret, shooter);
+    addRequirements(turret, shooter, hopper);
 
   }
 
@@ -117,10 +123,15 @@ public class ShootOnTheMoveCommand extends Command
     // Get estimated pose
     var robotPose             = estimatedPose.get();
     var fieldRelativeVelocity = _fieldRelativeVelocity.get();
+    Distance  minDistance      = isInAllianceZone(robotPose) ? Inches.of(104) : Meters.of(0.75);
+    Distance  maxDistance      = isInAllianceZone(robotPose) ? Inches.of(192) : Inches.of(500);
 
     // Calculate distance from turret to target
-    Translation2d target =
-        AllianceFlipUtil.apply(FieldConstants.Hub.topCenterPoint.toTranslation2d());
+    Translation2d target = isInAllianceZone(robotPose) ?
+        AllianceFlipUtil.apply(FieldConstants.Hub.topCenterPoint.toTranslation2d()) :
+        isOnAllianceOutpostSide(robotPose) ?
+        AllianceFlipUtil.apply(FieldConstants.Outpost.aimPoint) :
+        AllianceFlipUtil.apply(FieldConstants.Depot.aimPoint);
     Pose2d turretPosition         = turret.getPose(robotPose);
     double turretToTargetDistance = target.getDistance(turretPosition.getTranslation());
 
@@ -152,16 +163,36 @@ public class ShootOnTheMoveCommand extends Command
     if (lookaheadTurretToTargetDistanceMeasure.gte(minDistance) &&
         lookaheadTurretToTargetDistanceMeasure.lte(maxDistance))
     {
-      var shooterRPM = RPM.of(launchFlywheelSpeedMap.get(lookaheadTurretToTargetDistance));
+      var shooterRPM = isInAllianceZone(robotPose) ? RPM.of(launchFlywheelSpeedMap.get(lookaheadTurretToTargetDistance)) : RPM.of(passRpm(lookaheadTurretToTargetDistanceMeasure.in(Inches)));
       turret.setAngleSetpoint(turretAngle.getMeasure());
       shooterSubsystem.setVelocitySetpoint(shooterRPM);
       if (shootingDebounce.calculate(shooterSubsystem.getVelocity().isNear(shooterRPM, RPM.of(10))))
       {
-        // Set indexer to go vrooooom
-        // HERE
+        hopper.feed();
+      } else {
+        hopper.stop();
       }
+    } else {
+      hopper.stop();
     }
 
+  }
+
+  private boolean isInAllianceZone(Pose2d robotPose) {
+    Distance robotXDistance = robotPose.getMeasureX();
+    double allianceZoneMeters = AllianceFlipUtil.applyX(FieldConstants.LinesVertical.allianceZone);
+    return AllianceFlipUtil.shouldFlip() ? robotXDistance.gt(Meters.of(allianceZoneMeters)) : robotXDistance.lt(Meters.of(allianceZoneMeters));
+  }
+
+  private boolean isOnAllianceOutpostSide(Pose2d robotPose) {
+    Distance robotYDistance = robotPose.getMeasureY();
+    double midLineMeters = AllianceFlipUtil.applyY(FieldConstants.LinesHorizontal.center);
+
+    return AllianceFlipUtil.shouldFlip() ? robotYDistance.gt(Meters.of(midLineMeters)) : robotYDistance.lt(Meters.of(midLineMeters));
+  }
+
+  public double passRpm(double distanceInches) {
+    return 7.538 * distanceInches + 1705.0;
   }
 
   @Override
@@ -175,5 +206,6 @@ public class ShootOnTheMoveCommand extends Command
   public void end(boolean interrupted)
   {
     shooterSubsystem.setDutyCycleSetpoint(0);
+    hopper.stop();
   }
 }

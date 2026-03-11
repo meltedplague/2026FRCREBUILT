@@ -26,7 +26,7 @@ public class FieldConstants
   public static final FieldType fieldType = FieldType.WELDED;
 
   // AprilTag related constants
-  public static final AprilTagFieldLayout aprilTagLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltAndymark);
+  public static final AprilTagFieldLayout aprilTagLayout = AprilTagFieldLayout.loadField(AprilTagFields.k2026RebuiltWelded);
   public static final int                 aprilTagCount  = aprilTagLayout.getTags().size();
   public static final double              aprilTagWidth  = Units.inchesToMeters(6.5);
 
@@ -320,6 +320,9 @@ public class FieldConstants
         new Translation3d(depth, (fieldWidth / 2) + distanceFromCenterY + (width / 2), height);
     public static final Translation3d rightCorner =
         new Translation3d(depth, (fieldWidth / 2) + distanceFromCenterY - (width / 2), height);
+
+    public static final Translation2d aimPoint = 
+        new Translation2d(0.75, 7.25);
   }
 
   public static class Outpost
@@ -333,6 +336,9 @@ public class FieldConstants
     // Relevant reference points on alliance side
     public static final Translation2d centerPoint =
         new Translation2d(0, aprilTagLayout.getTagPose(29).get().getY());
+
+    public static final Translation2d aimPoint = 
+        new Translation2d(0.75, 0.75);
   }
 
   public enum FieldType

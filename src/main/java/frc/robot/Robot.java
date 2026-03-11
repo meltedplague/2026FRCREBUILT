@@ -11,6 +11,7 @@ import java.lang.ModuleLayer.Controller;
 
 import com.ctre.phoenix6.HootAutoReplay;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.swerve.SwerveDrivetrain.SwerveDriveState;
 
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.subsystems.ProtoShooterSubsystem;
+import swervelib.simulation.ironmaple.simulation.drivesims.SwerveDriveSimulation;
 import frc.robot.commands.LimeLightHelpers;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -64,16 +66,22 @@ public class Robot extends TimedRobot {
 
     @Override
     public void robotPeriodic() {
+        SwerveDriveState driveState = m_robotContainer.drivetrain.getState();
+
         m_timeAndJoystickReplay.update();
-        fieldPose.setRobotPose(m_robotContainer.drivetrain.getState().Pose);
+        fieldPose.setRobotPose(driveState.Pose);
         SmartDashboard.putData("Robot Pose", fieldPose);
         CommandScheduler.getInstance().run();
-        double omegaRps = Units.degreesToRotations(m_robotContainer.m_robotDrive.getTurnRste());
-        var llMeasurement = LimeLightHelpers.getBotPoseEstimate_wpiRed(limelightName:"9600");
+
+        double headingDeg = driveState.Pose.getRotation().getDegrees();
+        double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
+        // var llMeasurement = LimeLightHelpers.getBotPoseEstimate_wpiBlue(limelightName:"9600");
+        var llMeasurement = LimeLightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight"); //what is our limelight's name? is it 9600?
 
         if (llMeasurement != null && llMeasurement.tagCount > 0 && Math.abs(omegaRps) < 2.0) {
-            m_robotContainer.m_robotDrive.resetOdometry(llMeasurement);
+            m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
         }
+        LimeLightHelpers.SetRobotOrientation("limelight", headingDeg, 0, 0, 0, 0, 0);
     }
 
     @Override

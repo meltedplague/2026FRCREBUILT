@@ -27,16 +27,16 @@ import yams.motorcontrollers.SmartMotorControllerConfig;
 import yams.motorcontrollers.SmartMotorControllerConfig.ControlMode;
 import yams.motorcontrollers.SmartMotorControllerConfig.MotorMode;
 import yams.motorcontrollers.SmartMotorControllerConfig.TelemetryVerbosity;
+import yams.motorcontrollers.local.NovaWrapper;
 import yams.motorcontrollers.remote.TalonFXWrapper;
 
 public class ShooterSubsystem extends SubsystemBase
 {
-
-  private final TalonFX                    shooterMotor         = new TalonFX(12);
-  private final TalonFX                    feeder         = new TalonFX(15);
-  private final boolean                    feederInverted = true;
+  private final TalonFX                    leaderMotor         = new TalonFX(12);
+  private final TalonFX                    followerMotor         = new TalonFX(15);
+  private final boolean                    followerInverted = true;
   private final SmartMotorControllerConfig motorConfig            = new SmartMotorControllerConfig(this)
-      .withFollowers(Pair.of(feeder, feederInverted))
+      .withFollowers(Pair.of(followerMotor, followerInverted))
       .withControlMode(ControlMode.CLOSED_LOOP)
       .withClosedLoopController(0, 0, 0)
       .withFeedforward(new SimpleMotorFeedforward(0.11965, 0.3422, 0.0))
@@ -46,7 +46,7 @@ public class ShooterSubsystem extends SubsystemBase
       .withIdleMode(MotorMode.COAST)
       .withStatorCurrentLimit(Amps.of(40));
 
-  private final SmartMotorController       motor                  = new TalonFXWrapper(shooterMotor,
+  private final SmartMotorController       motor                  = new TalonFXWrapper(leaderMotor,
                                                                                     DCMotor.getKrakenX60(2),
                                                                                     motorConfig);
   private final FlyWheelConfig             shooterConfig          = new FlyWheelConfig(motor)

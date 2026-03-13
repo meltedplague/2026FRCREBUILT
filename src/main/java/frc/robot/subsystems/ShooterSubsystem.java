@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.Second;
 import static edu.wpi.first.units.Units.Seconds;
 import static edu.wpi.first.units.Units.Volts;
 
+import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.math.Pair;
@@ -16,6 +17,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.util.function.Supplier;
 import yams.gearing.GearBox;
@@ -95,7 +97,7 @@ public class ShooterSubsystem extends SubsystemBase
     shooter.simIterate();
   }
 
-  public Command sysId() {
+  public Command sysIdOld() {
     return shooter.sysId(Volts.of(12), Volts.of(3).per(Second), Seconds.of(7));
   }
 
@@ -125,5 +127,26 @@ public class ShooterSubsystem extends SubsystemBase
   public void setDutyCycleSetpoint(double dutyCycle)
   {
     shooter.setDutyCycleSetpoint(dutyCycle);
+  }
+
+  /**
+   * Full YAMS SysId routine wrapped with CTRE SignalLogger start/stop.
+   *
+   * Tune these values if needed:
+   * - dynamic step voltage: 12 V
+   * - ramp rate: 3 V/s
+   * - timeout: 7 s
+   */
+  public Command sysId() {
+    return Commands.sequence(
+        Commands.runOnce(() -> {
+          SignalLogger.stop();   // make sure any old log is closed
+          SignalLogger.start();  // start fresh log for this run
+        }),
+        shooter.sysId(Volts.of(12), Volts.of(3).per(Second), Seconds.of(7))
+    ).finallyDo(interrupted -> {
+      shooter.setDutyCycleSetpoint(0.0);
+      SignalLogger.stop();
+    });
   }
 }

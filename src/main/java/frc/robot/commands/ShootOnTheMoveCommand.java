@@ -66,6 +66,7 @@ public class ShootOnTheMoveCommand extends Command
   static
   {
     // These should be found on your robot
+    //                         Inches |  RPMS 
     launchFlywheelSpeedMap.put(184.0, 3100.0);
     launchFlywheelSpeedMap.put(173.0, 3000.0);
     launchFlywheelSpeedMap.put(131.5, 2700.0);
@@ -81,11 +82,12 @@ public class ShootOnTheMoveCommand extends Command
     launchFlywheelSpeedMap.put(151.0, 2800.0);
 
     // TODO You likely need to measure this
+    //                  Inches    | Seconds in the air
     timeOfFlightMap.put(223.62, 1.16);
     timeOfFlightMap.put(179.13, 1.12);
     timeOfFlightMap.put(124.02, 1.11);
-    timeOfFlightMap.put(74.02, 1.09);
-    timeOfFlightMap.put(54.33, 0.90);
+    timeOfFlightMap.put(74.02,  1.09);
+    timeOfFlightMap.put(54.33,  0.90);
   }
 
   public ShootOnTheMoveCommand(TurretSubsystem turret, ShooterSubsystem shooter, HopperSubsystem hopper,

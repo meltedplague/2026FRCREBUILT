@@ -159,15 +159,15 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Intake POS", intake.getPosition().getValue().in(Degrees));
 
         if (controller.getRawButton(6)) {
-            intake.set(-1);
-            arm.setVoltage(3);
+            intake.set(1);
+            arm.setVoltage(24);
         }
         else if (controller.getRawAxis(3) > .4) {
-            intake.set(-1);
-            arm.setVoltage(-3);
+            intake.set(1);
+            arm.setVoltage(-24);
         }
         else if (controller.getRawAxis(2) > .4) {
-            intake.set(-1);
+            intake.set(1);
         }
         else if (controller.getRawButton(1)) {
             intake.set(1);

@@ -46,7 +46,7 @@ public class ShooterSubsystem extends SubsystemBase
       .withFollowers(Pair.of(followerMotor, followerInverted))
       .withControlMode(ControlMode.CLOSED_LOOP)
       .withClosedLoopController(0, 0, 0)
-      .withFeedforward(new SimpleMotorFeedforward(0.34220, 0.11965, 0.0))
+      .withFeedforward(new SimpleMotorFeedforward(0.34220, .11377 /*0.11965*/, 0.0))
       .withTelemetry("ShooterMotor", TelemetryVerbosity.HIGH)
       .withGearing(new MechanismGearing(GearBox.fromReductionStages(1)))
       .withMotorInverted(false)

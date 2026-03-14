@@ -163,6 +163,10 @@ private SmartMotorController smc =
     intakePivotController.setPosition(Degrees.of(148));
   }
 
+  public Command dropInatak() {
+    return intakePivot.set(.3).withTimeout(.5);
+  }
+
   @Override
   public void periodic() {
     intake.updateTelemetry();

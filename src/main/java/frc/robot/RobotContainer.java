@@ -10,6 +10,7 @@ import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -72,6 +73,11 @@ public class RobotContainer {
             shooter.sysIdQuasistaticLeft(SysIdRoutine.Direction.kReverse),
             shooter.sysIdDynamicLeft(SysIdRoutine.Direction.kForward),
             shooter.sysIdDynamicLeft(SysIdRoutine.Direction.kReverse)));
+
+        NamedCommands.registerCommand("Drop command", intake.dropInatak());
+        NamedCommands.registerCommand("RunInake command", intake.intakeCommand());
+        NamedCommands.registerCommand("Shoot command", shootCommand);
+
         //put named command stuff here
         SmartDashboard.putData("Auto Chooser", autoChooser);
     }

@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -58,17 +59,32 @@ public class RobotContainer {
 
     private ShootOnTheMoveCommand shootCommand = new ShootOnTheMoveCommand(turret, shooter, hopper, drivetrain);
 
+    // private IntakeSubsystem deployAndRollCommand = new deployAndRollCommand();
+
     public RobotContainer() {
         
         configureBindings();
         autoChooser = AutoBuilder.buildAutoChooser();
+         autoChooser.addOption(
+        "SysId Left Shooter Analysis",
+        new SequentialCommandGroup(
+            shooter.sysIdQuasistaticLeft(SysIdRoutine.Direction.kForward),
+            shooter.sysIdQuasistaticLeft(SysIdRoutine.Direction.kReverse),
+            shooter.sysIdDynamicLeft(SysIdRoutine.Direction.kForward),
+            shooter.sysIdDynamicLeft(SysIdRoutine.Direction.kReverse)));
         //put named command stuff here
         SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
     private void configureBindings() {
 
-        joystick.a().whileTrue(shootCommand);
+        joystick.leftBumper().whileTrue(shootCommand);
+
+        //if your going to add the intake command then please disable the simple code in robot.java
+
+        // joystick.a().whileTrue(deployAndRollCommand);
+
+        // joystick.b().whileTrue(hopper.feederRun());
         
         // joystick.y().whileTrue(turret.sysId());
 

@@ -151,7 +151,7 @@ private SmartMotorController smc =
     intakePivotController.setPosition(Degrees.of(0));
   }
 
-  private void setIntakeFeed() {
+  public void setIntakeFeed() {
     intakePivotController.setPosition(Degrees.of(59));
   }
 

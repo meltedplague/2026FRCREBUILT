@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.RPM;
 import static edu.wpi.first.units.Units.Radians;
 import static edu.wpi.first.units.Units.Seconds;
 
+import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -152,7 +153,7 @@ public class ShootOnTheMoveCommand extends Command
     double lookaheadTurretToTargetDistance = turretToTargetDistance;
     for (int i = 0; i < 20; i++)
     {
-      timeOfFlight = timeOfFlightMap.get(lookaheadTurretToTargetDistance);
+      timeOfFlight = timeOfFlightMap.get(Meters.of(lookaheadTurretToTargetDistance).in(Inches));
       double offsetX = turretVelocity.vxMetersPerSecond * timeOfFlight;
       double offsetY = turretVelocity.vyMetersPerSecond * timeOfFlight;
       lookaheadPose =
@@ -163,7 +164,11 @@ public class ShootOnTheMoveCommand extends Command
     }
 
     // Calculate parameters accounted for imparted velocity
-    turretAngle = target.minus(lookaheadPose.getTranslation()).getAngle();
+    // turretAngle = target.minus(lookaheadPose.getTranslation()).getAngle();
+    Rotation2d fieldangletotarget = target.minus(lookaheadPose.getTranslation()).getAngle();
+    Rotation2d robotrelativeturretangle = fieldangletotarget.minus(robotPose.getRotation());
+    turretAngle =Rotation2d.fromRadians(MathUtil.angleModulus(robotrelativeturretangle.getRadians()));
+    SmartDashboard.putNumber("Turret Angle", turretAngle.getDegrees());
     if (lastTurretAngle == null) {lastTurretAngle = turretAngle;}
     lastTurretAngle = turretAngle;
     var lookaheadTurretToTargetDistanceMeasure = Meters.of(lookaheadTurretToTargetDistance);
@@ -175,7 +180,7 @@ public class ShootOnTheMoveCommand extends Command
       SmartDashboard.putNumber("rpm",shooterRPM.in(RPM));
       turret.setAngleSetpoint(turretAngle.getMeasure());
       shooterSubsystem.setVelocitySetpoint(shooterRPM);
-      if (shootingDebounce.calculate(shooterSubsystem.getVelocity().isNear(shooterRPM, RPM.of(10)))) // If you have problems with this you increase this by 10 rpms each time until it shoots like you want. If you start creeping above 100, then you might want to look at something else as the problem.
+      if (shootingDebounce.calculate(shooterSubsystem.getVelocity().isNear(shooterRPM, RPM.of(200)))) // If you have problems with this you increase this by 10 rpms each time until it shoots like you want. If you start creeping above 100, then you might want to look at something else as the problem.
       {
         hopper.feed();
       } else {

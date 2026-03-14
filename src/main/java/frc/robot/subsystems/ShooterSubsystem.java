@@ -14,11 +14,16 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.math.Pair;
 import edu.wpi.first.math.controller.SimpleMotorFeedforward;
 import edu.wpi.first.math.system.plant.DCMotor;
+import edu.wpi.first.units.VoltageUnit;
 import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.LinearVelocity;
+import edu.wpi.first.units.measure.Velocity;
+import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
+
 import java.util.function.Supplier;
 import yams.gearing.GearBox;
 import yams.gearing.MechanismGearing;
@@ -34,8 +39,8 @@ import yams.motorcontrollers.remote.TalonFXWrapper;
 
 public class ShooterSubsystem extends SubsystemBase
 {
-  private final TalonFX                    leaderMotor         = new TalonFX(12);
-  private final TalonFX                    followerMotor         = new TalonFX(15);
+  private final TalonFX                    leaderMotor         = new TalonFX(15);
+  private final TalonFX                    followerMotor         = new TalonFX(12);
   private final boolean                    followerInverted = true;
   private final SmartMotorControllerConfig motorConfig            = new SmartMotorControllerConfig(this)
       .withFollowers(Pair.of(followerMotor, followerInverted))
@@ -60,6 +65,16 @@ public class ShooterSubsystem extends SubsystemBase
       .withLowerSoftLimit(RPM.of(0))
       .withTelemetry("ShooterMech", TelemetryVerbosity.HIGH);
   private final FlyWheel                   shooter                = new FlyWheel(shooterConfig);
+
+  private final SysIdRoutine m_sysIdRoutineLeft =
+        new SysIdRoutine(
+            new SysIdRoutine.Config(
+                null,
+                null,
+                null, // Use default config
+                (state) -> SignalLogger.writeString("Shooter/SysIdState/Left", state.toString())),
+            new SysIdRoutine.Mechanism(
+                (voltage) -> motor.setVoltage(voltage), null, this));
 
   public ShooterSubsystem() {}
 
@@ -149,4 +164,11 @@ public class ShooterSubsystem extends SubsystemBase
       SignalLogger.stop();
     });
   }
+   public Command sysIdQuasistaticLeft(SysIdRoutine.Direction direction) {
+    return m_sysIdRoutineLeft.quasistatic(direction);
+  }
+
+  public Command sysIdDynamicLeft(SysIdRoutine.Direction direction) {
+    return m_sysIdRoutineLeft.dynamic(direction);
+}
 }

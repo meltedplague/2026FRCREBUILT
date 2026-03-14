@@ -54,7 +54,7 @@ public class HopperSubsystem extends SubsystemBase {
       .withControlMode(ControlMode.OPEN_LOOP)
       .withTelemetry("FeederMotor", TelemetryVerbosity.HIGH)
       .withGearing(new MechanismGearing(GearBox.fromReductionStages(4))) // 4:1 gear reduction
-      .withMotorInverted(true)
+      .withMotorInverted(false)
       .withIdleMode(MotorMode.BRAKE)
       .withStatorCurrentLimit(Amps.of(20));
 
@@ -75,6 +75,9 @@ public class HopperSubsystem extends SubsystemBase {
   public void feed() {
     hopper.setDutyCycleSetpoint(HOPPER_SPEED);
     feeder.setDutyCycleSetpoint(FEEDER_SPEED);
+  }
+  public Command feederRun() {
+    return feeder.set(FEEDER_SPEED);
   }
 
   public void stop() {

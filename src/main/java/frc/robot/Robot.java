@@ -156,7 +156,36 @@ public class Robot extends TimedRobot {
         // targetRPM = SmartDashboard.getNumber("Target RPM", targetRPM);
         // turretAngle = SmartDashboard.getNumber("turret angle", turretAngle);
         SmartDashboard.putNumber("Shooter RPM", shooter.getVelocity());
+        SmartDashboard.putNumber("Intake POS", intake.getPosition().getValue().in(Degrees));
 
+        if (controller.getRawButton(6)) {
+            intake.set(-1);
+            arm.setVoltage(3);
+        }
+        else if (controller.getRawAxis(3) > .4) {
+            intake.set(-1);
+            arm.setVoltage(-3);
+        }
+        else if (controller.getRawAxis(2) > .4) {
+            intake.set(-1);
+        }
+        else if (controller.getRawButton(1)) {
+            intake.set(1);
+        }
+        else {
+            intake.set(0);
+            arm.setVoltage(0);
+        }
+
+        // if (controller.getRawButton(4)) {
+        //     shooter.runVelocity(-2680);
+        // }
+        // else if (!controller.getRawButton(4) || !controller.getRawButton(5)) {
+        //     shooter.runVelocity(0;)
+        // }
+
+
+        
         // if (controller.getRawButton(1)) {
         //     m_robotContainer.turret.setAngleSetpoint(Degrees.of(turretAngle));
         // }

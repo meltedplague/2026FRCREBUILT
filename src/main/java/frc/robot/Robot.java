@@ -15,6 +15,10 @@ import com.ctre.phoenix6.HootAutoReplay;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.swerve.SwerveDrivetrain.SwerveDriveState;
 
+import edu.wpi.first.math.Matrix;
+import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.math.numbers.N1;
+import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -59,6 +63,8 @@ public class Robot extends TimedRobot {
     private final RobotContainer m_robotContainer  = new RobotContainer();;
     private Field2d fieldPose = new Field2d();
 
+    private final Matrix<N3, N1> stdDevs = VecBuilder.fill(0.7, 0.7, Double.POSITIVE_INFINITY);
+
     /* log and replay timestamp and joystick data */
     private final HootAutoReplay m_timeAndJoystickReplay = new HootAutoReplay()
         .withTimestampReplay()
@@ -84,27 +90,33 @@ public class Robot extends TimedRobot {
 
         double headingDeg = driveState.Pose.getRotation().getDegrees();
         double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
-        // var llMeasurement = LimeLightHelpers.getBotPoseEstimate_wpiBlue(limelightName:"9600");
-        var llMeasurement = LimeLightHelpers.getBotPoseEstimate_wpiBlue("limelight-xflare"); //Our limelight's name is 9600
+
+        LimeLightHelpers.SetRobotOrientation("limelight-xflare", headingDeg, 0, 0, 0, 0, 0);
+
+        var llMeasurement = LimeLightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight-xflare"); //Our limelight's name is 9600
 
         if (llMeasurement != null && llMeasurement.tagCount > 0 && Math.abs(omegaRps) < 2.0) {
             // fieldPose.setRobotPose(llMeasurement.pose);
-            m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
+            m_robotContainer.drivetrain.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds, stdDevs);
         }
-        LimeLightHelpers.SetRobotOrientation("limelight-xflare", headingDeg, 0, 0, 0, 0, 0);
+        
     }
 
     @Override
     public void disabledInit() {}
 
     @Override
-    public void disabledPeriodic() {}
+    public void disabledPeriodic() {
+        LimeLightHelpers.SetIMUMode("limelight-xflare", 0);
+    }
 
     @Override
     public void disabledExit() {}
 
     @Override
     public void autonomousInit() {
+        LimeLightHelpers.SetIMUMode("limelight-xflare", 0);
+
         m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
         if (m_autonomousCommand != null) {
@@ -120,6 +132,8 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
+        LimeLightHelpers.SetIMUMode("limelight-xflare", 0);
+
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().cancel(m_autonomousCommand);
         }

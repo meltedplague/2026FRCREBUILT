@@ -88,6 +88,7 @@ public class ShootOnTheMoveCommand extends Command
     launchFlywheelSpeedMap.put(192.0, 3150.0 + 50);
     launchFlywheelSpeedMap.put(162.0, 2930.0 + 50);
     launchFlywheelSpeedMap.put(151.0, 2800.0 + 50);
+    launchFlywheelSpeedMap.put(241.0, 3522.0); //calculated - replace with measured pair ASAP
 
     // TODO You likely need to measure this
     //                  Inches    | Seconds in the air

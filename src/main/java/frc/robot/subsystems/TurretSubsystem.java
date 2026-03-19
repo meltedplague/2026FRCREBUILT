@@ -48,7 +48,7 @@ import yams.motorcontrollers.remote.TalonFXWrapper;
 
 public class TurretSubsystem extends SubsystemBase
 {
-  private final double MAX_ONE_DIR_FOV = 90; // degrees
+public final double MAX_ONE_DIR_FOV = 90; // degrees
   // Stay away from the ends during SysId
 private static final double SYSID_SAFE_MIN_DEG = -60.0;
 private static final double SYSID_SAFE_MAX_DEG = 60.0;

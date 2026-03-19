@@ -23,7 +23,9 @@ import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ShootDistanceCommand;
+import frc.robot.commands.ShootOnTheMoveCommand;
 import frc.robot.commands.ShootOnTheMoveCommandOLD;
+import frc.robot.commands.ShootOnTheMoveCommandAIOptimized;
 import frc.robot.commands.Telemetry;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -59,7 +61,9 @@ public class RobotContainer {
 
     public IntakeSubsystem intake = new IntakeSubsystem();
 
-    private ShootOnTheMoveCommandOLD shootCommand = new ShootOnTheMoveCommandOLD(turret, shooter, hopper, drivetrain);
+    private ShootOnTheMoveCommand shootCommand = new ShootOnTheMoveCommand(turret, shooter, hopper, drivetrain);
+    private ShootOnTheMoveCommandOLD shootCommandOld = new ShootOnTheMoveCommandOLD(turret, shooter, hopper, drivetrain);
+    private ShootOnTheMoveCommandAIOptimized shootCommandAIOptimized = new ShootOnTheMoveCommandAIOptimized(turret, shooter, hopper, drivetrain);
 
     private ShootOnTheMoveCommandOLD shootNoTurretCommand = new ShootOnTheMoveCommandOLD(turret, shooter, hopper, drivetrain);
 

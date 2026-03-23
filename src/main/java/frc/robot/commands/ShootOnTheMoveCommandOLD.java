@@ -52,6 +52,7 @@ public class ShootOnTheMoveCommandOLD extends Command
   private              TurretSubsystem                          turret;
   private              ShooterSubsystem                         shooterSubsystem;
   private              HopperSubsystem                          hopper;
+  private              CommandSwerveDrivetrain                  swerveDrive;
   private              Supplier<ChassisSpeeds>                  _fieldRelativeVelocity;
   private              Supplier<Pose2d>                         estimatedPose;
   private              Field2d                                  debugField             = new Field2d();
@@ -100,6 +101,7 @@ public class ShootOnTheMoveCommandOLD extends Command
     this.turret = turret;
     this.shooterSubsystem = shooter;
     this.hopper = hopper;
+    this.swerveDrive = swerveDrive;
 
   
     SmartDashboard.putData("ShootOnTheMoveField", debugField);
@@ -125,6 +127,7 @@ public class ShootOnTheMoveCommandOLD extends Command
   @Override
   public void initialize()
   {
+    swerveDrive.setShootOnMoveDriveCurrentLimitEnabled(true);
 
   }
 
@@ -237,6 +240,7 @@ public class ShootOnTheMoveCommandOLD extends Command
   @Override
   public void end(boolean interrupted)
   {
+    swerveDrive.setShootOnMoveDriveCurrentLimitEnabled(false);
     shooterSubsystem.setDutyCycleSetpoint(0);
     hopper.stop();
     turret.turretSetDutyCycle(0);

@@ -6,7 +6,9 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import com.ctre.phoenix6.SignalLogger;
+import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.Utils;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -40,8 +42,16 @@ import frc.robot.generated.TunerConstants.TunerSwerveDrivetrain;
  */
 public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Subsystem {
     private static final double kSimLoopPeriod = 0.004; // 4 ms
+    private static final CurrentLimitsConfigs kNormalDriveCurrentLimits = new CurrentLimitsConfigs()
+        .withStatorCurrentLimit(Amps.of(120))
+        .withStatorCurrentLimitEnable(true)
+        .withSupplyCurrentLimitEnable(false);
+    private static final CurrentLimitsConfigs kShootOnMoveDriveCurrentLimits = new CurrentLimitsConfigs()
+        .withStatorCurrentLimit(Amps.of(40))
+        .withStatorCurrentLimitEnable(true);
     private Notifier m_simNotifier = null;
     private double m_lastSimTime;
+    private boolean m_shootOnMoveCurrentLimitEnabled = false;
 
     /* Blue alliance sees forward as 0 degrees (toward red alliance wall) */
     private static final Rotation2d kBlueAlliancePerspectiveRotation = Rotation2d.kZero;
@@ -234,6 +244,33 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
      */
     public Command applyRequest(Supplier<SwerveRequest> request) {
         return run(() -> this.setControl(request.get()));
+    }
+
+    public void setShootOnMoveDriveCurrentLimitEnabled(boolean enabled) {
+        if (m_shootOnMoveCurrentLimitEnabled == enabled) {
+            return;
+        }
+
+        CurrentLimitsConfigs currentLimits = enabled
+            ? kShootOnMoveDriveCurrentLimits
+            : kNormalDriveCurrentLimits;
+
+        for (var module : getModules()) {
+            StatusCode status = module.getDriveMotor().getConfigurator().apply(currentLimits);
+            if (!status.isOK()) {
+                DriverStation.reportWarning(
+                    String.format(
+                        "Failed to apply %s drive current limit on module %d: %s",
+                        enabled ? "shoot-on-move" : "normal",
+                        module.getDriveMotor().getDeviceID(),
+                        status
+                    ),
+                    false
+                );
+            }
+        }
+
+        m_shootOnMoveCurrentLimitEnabled = enabled;
     }
 
     /**

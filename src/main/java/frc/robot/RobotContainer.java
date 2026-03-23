@@ -24,8 +24,6 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ShootDistanceCommand;
 import frc.robot.commands.ShootOnTheMoveCommand;
-import frc.robot.commands.ShootOnTheMoveCommandOLD;
-import frc.robot.commands.ShootOnTheMoveCommandAIOptimized;
 import frc.robot.commands.Telemetry;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -62,11 +60,9 @@ public class RobotContainer {
 
     public IntakeSubsystem intake = new IntakeSubsystem();
 
-    private ShootOnTheMoveCommand shootCommand = new ShootOnTheMoveCommand(turret, shooter, hopper, drivetrain);
-    public ShootOnTheMoveCommandOLD shootCommandOld = new ShootOnTheMoveCommandOLD(turret, shooter, hopper, drivetrain);
-    private ShootOnTheMoveCommandAIOptimized shootCommandAIOptimized = new ShootOnTheMoveCommandAIOptimized(turret, shooter, hopper, drivetrain);
+    public ShootOnTheMoveCommand shootCommand = new ShootOnTheMoveCommand(turret, shooter, hopper, drivetrain);
 
-    private ShootOnTheMoveCommandOLD shootNoTurretCommand = new ShootOnTheMoveCommandOLD(turret, shooter, hopper, drivetrain);
+    private ShootDistanceCommand shootNoTurretCommand = new ShootDistanceCommand(turret, shooter, hopper, drivetrain);
 
 
     // private IntakeSubsystem deployAndRollCommand = new deployAndRollCommand();
@@ -93,9 +89,8 @@ public class RobotContainer {
 
     private void configureBindings() {
 
-        joystick.b().whileTrue(Commands.runOnce(() -> slowDownDriving = true).andThen(shootCommandOld)).whileFalse(Commands.runOnce(() -> slowDownDriving = false));
+        joystick.b().whileTrue(Commands.runOnce(() -> slowDownDriving = true).andThen(shootCommand)).whileFalse(Commands.runOnce(() -> slowDownDriving = false));
 
-        joystick.leftBumper().whileTrue(shootCommandAIOptimized);
 
         // joystick.b().whileTrue(shootNoTurretCommand);
 

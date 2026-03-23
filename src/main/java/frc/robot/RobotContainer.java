@@ -24,8 +24,6 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.ShootDistanceCommand;
 import frc.robot.commands.ShootOnTheMoveCommand;
-import frc.robot.commands.ShootOnTheMoveCommandOLD;
-import frc.robot.commands.ShootOnTheMoveCommandAIOptimized;
 import frc.robot.commands.Telemetry;
 import frc.robot.generated.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -62,11 +60,9 @@ public class RobotContainer {
 
     public IntakeSubsystem intake = new IntakeSubsystem();
 
-    private ShootOnTheMoveCommand shootCommand = new ShootOnTheMoveCommand(turret, shooter, hopper, drivetrain);
-    public ShootOnTheMoveCommandOLD shootCommandOld = new ShootOnTheMoveCommandOLD(turret, shooter, hopper, drivetrain);
-    private ShootOnTheMoveCommandAIOptimized shootCommandAIOptimized = new ShootOnTheMoveCommandAIOptimized(turret, shooter, hopper, drivetrain);
+    public ShootOnTheMoveCommand shootCommand = new ShootOnTheMoveCommand(turret, shooter, hopper, drivetrain);
 
-    private ShootOnTheMoveCommandOLD shootNoTurretCommand = new ShootOnTheMoveCommandOLD(turret, shooter, hopper, drivetrain);
+    private ShootDistanceCommand shootNoTurretCommand = new ShootDistanceCommand(turret, shooter, hopper, drivetrain);
 
 
     // private IntakeSubsystem deployAndRollCommand = new deployAndRollCommand();
@@ -93,9 +89,8 @@ public class RobotContainer {
 
     private void configureBindings() {
 
-        joystick.b().whileTrue(Commands.runOnce(() -> slowDownDriving = true).andThen(shootCommandOld)).whileFalse(Commands.runOnce(() -> slowDownDriving = false));
+        joystick.b().whileTrue(Commands.runOnce(() -> slowDownDriving = true).andThen(shootCommand)).whileFalse(Commands.runOnce(() -> slowDownDriving = false));
 
-        joystick.leftBumper().whileTrue(shootCommandAIOptimized);
 
         // joystick.b().whileTrue(shootNoTurretCommand);
 
@@ -116,13 +111,30 @@ public class RobotContainer {
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
         drivetrain.setDefaultCommand(
-            // Drivetrain will execute this command periodically
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed * (slowDownDriving ? 0.5 : 1.0 )) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed * (slowDownDriving ? 0.5 : 1.0 )) // Drive left with negative X (left)
-                    .withRotationalRate(-joystick.getRightX() * MaxAngularRate * (slowDownDriving ? 0.5 : 1.0 )) // Drive counterclockwise with negative X (left)
-            )
+            drivetrain.applyRequest(() -> {
+                // If shooting, drive at half speed
+                double scale = slowDownDriving ? 0.5 : 1.0;
+
+                double vx = -joystick.getLeftY() * MaxSpeed * scale;
+                double vy = -joystick.getLeftX() * MaxSpeed * scale;
+                double omega = -joystick.getRightX() * MaxAngularRate * scale;
+
+                // if not driving, put wheels in X pattern
+                boolean stopped =
+                    Math.abs(vx) < MaxSpeed * 0.1 &&
+                    Math.abs(vy) < MaxSpeed * 0.1 &&
+                    Math.abs(omega) < MaxAngularRate * 0.1;
+
+                if (stopped) {
+                    return brake;
+                }
+
+                return drive.withVelocityX(vx)
+                            .withVelocityY(vy)
+                            .withRotationalRate(omega);
+            })
         );
+
 
         // Idle while the robot is disabled. This ensures the configured
         // neutral mode is applied to the drive motors while disabled.

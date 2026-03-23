@@ -58,11 +58,11 @@ public class ShootOnTheMoveCommandAIOptimized extends Command {
     launchFlywheelSpeedMap.put(241.0, 3522.0); //calculated - replace with measured pair ASAP
 
     // Inches -> seconds
-    timeOfFlightMap.put(223.62, 1.16);
-    timeOfFlightMap.put(179.13, 1.12);
-    timeOfFlightMap.put(124.02, 1.11);
-    timeOfFlightMap.put(74.02, 1.09);
-    timeOfFlightMap.put(54.33, 0.90);
+    timeOfFlightMap.put(172.0, 0.99);
+    timeOfFlightMap.put(147.0, 0.90);
+    timeOfFlightMap.put(128.0, 0.83);
+    timeOfFlightMap.put(127.0, 0.83);
+    timeOfFlightMap.put(112.0, 0.80);
   }
 
   private final TurretSubsystem turret;

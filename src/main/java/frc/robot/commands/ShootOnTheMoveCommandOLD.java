@@ -1,5 +1,6 @@
 package frc.robot.commands;
 
+import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Feet;
 import static edu.wpi.first.units.Units.Inches;
 import static edu.wpi.first.units.Units.Meters;
@@ -211,6 +212,21 @@ public class ShootOnTheMoveCommandOLD extends Command
     return 7.538 * distanceInches + 1705.0;
   }
 
+  public void diagnosticInfo() {
+    var robotPose             = estimatedPose.get();
+    Translation2d target = isInAllianceZone(robotPose) ?
+        AllianceFlipUtil.apply(FieldConstants.Hub.topCenterPoint.toTranslation2d()) :
+        isOnAllianceOutpostSide(robotPose) ?
+        AllianceFlipUtil.apply(FieldConstants.Outpost.aimPoint) :
+        AllianceFlipUtil.apply(FieldConstants.Depot.aimPoint);
+    Pose2d turretPosition         = turret.getPose(robotPose);
+    double turretToTargetDistance = target.getDistance(turretPosition.getTranslation());
+    double lookaheadTurretToTargetDistance = turretToTargetDistance;
+    var lookaheadTurretToTargetDistanceMeasure = Meters.of(lookaheadTurretToTargetDistance);
+    SmartDashboard.putNumber("Turret Angle", turret.getAngle().in(Degrees));
+    SmartDashboard.putNumber("Distancetogoal", lookaheadTurretToTargetDistanceMeasure.in(Inches));
+  }
+
   @Override
   public boolean isFinished()
   {
@@ -223,5 +239,6 @@ public class ShootOnTheMoveCommandOLD extends Command
   {
     shooterSubsystem.setDutyCycleSetpoint(0);
     hopper.stop();
+    turret.turretSetDutyCycle(0);
   }
 }

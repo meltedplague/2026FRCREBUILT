@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.2756776034236803,
-        "y": 0.6515406562054205
+        "x": 6.225691868758916,
+        "y": 7.457
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.275677603423681,
-        "y": 0.6515406562054205
+        "x": 4.1334757845491055,
+        "y": 7.455152769319532
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "End GetPieces step 2"
     },
     {
       "anchor": {
-        "x": 4.0,
-        "y": 6.0
+        "x": 3.068659058487874,
+        "y": 7.457
       },
       "prevControl": {
-        "x": 3.0,
-        "y": 6.0
+        "x": 2.818659743589274,
+        "y": 7.457585277908827
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Shoot POS"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "reversed": false,
   "folder": null,
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

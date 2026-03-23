@@ -108,6 +108,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
         LimeLightHelpers.SetIMUMode("limelight-xflare", 0);
+        m_robotContainer.shootCommandOld.diagnosticInfo();
     }
 
     @Override

@@ -52,7 +52,7 @@ private SmartMotorControllerConfig smcConfig = new SmartMotorControllerConfig(th
     .withGearing(new MechanismGearing(GearBox.fromReductionStages(1)))
     .withMotorInverted(true)
     .withIdleMode(MotorMode.COAST)
-    .withStatorCurrentLimit(Amps.of(40));
+    .withStatorCurrentLimit(Amps.of(30));
 
 private SmartMotorController smc =
     new TalonFXWrapper(rollerMotor, DCMotor.getFalcon500(1), smcConfig);
@@ -78,7 +78,7 @@ private SmartMotorController smc =
       .withMotorInverted(false)
       .withIdleMode(MotorMode.COAST)
       .withSoftLimit(Degrees.of(0), Degrees.of(150))
-      .withStatorCurrentLimit(Amps.of(40))
+      .withStatorCurrentLimit(Amps.of(30))
       .withClosedLoopRampRate(Seconds.of(0.1))
       .withOpenLoopRampRate(Seconds.of(0.1));
 

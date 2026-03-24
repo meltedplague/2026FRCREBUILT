@@ -1,0 +1,56 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.75
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "OutPost Get pieces step 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "OutPost Get pieces step 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "OutPost Go Shoot"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Go To OutPost"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot command"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

@@ -1,0 +1,62 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Outpost 2056 Get pieces cycle 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Outpost 2056 Go Shoot"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot command"
+                }
+              },
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Outpost 2056 Shoot On Move"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Outpost 2056 Get pieces Again"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Outpost 2056 Go Shoot Again"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Outpost 2056 Shoot On Move"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

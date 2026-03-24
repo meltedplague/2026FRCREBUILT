@@ -1,0 +1,56 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 0.75
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Get pieces step 1"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Get pieces step 2"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "Go Shoot"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Get Aliance Pieces"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot command"
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

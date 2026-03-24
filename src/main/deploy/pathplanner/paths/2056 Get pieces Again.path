@@ -3,35 +3,39 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.41,
+        "x": 3.308819277108434,
         "y": 7.391
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.41,
+        "x": 8.308819277108434,
         "y": 7.391
       },
       "isLocked": false,
-      "linkedName": "Depot Start POS"
+      "linkedName": "2056 End Shoot POS"
     },
     {
       "anchor": {
-        "x": 7.97241084165478,
-        "y": 5.5
+        "x": 6.4,
+        "y": 4.502884201340187
       },
       "prevControl": {
-        "x": 7.97241084165478,
-        "y": 7.5
+        "x": 6.4,
+        "y": 6.502884201340187
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End GetPieces step 1"
+      "linkedName": "2056 Cycle two Intake End"
     }
   ],
   "rotationTargets": [
     {
+      "waypointRelativePos": 0.014107883817425924,
+      "rotationDegrees": 0.0
+    },
+    {
       "waypointRelativePos": 0.15138592750532862,
-      "rotationDegrees": 180.0
+      "rotationDegrees": 0.0
     },
     {
       "waypointRelativePos": 0.6268656716417927,
@@ -54,7 +58,14 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "RunInake command",
+      "waypointRelativePos": 0.10223325062034869,
+      "endWaypointRelativePos": 1.0,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -64,14 +75,14 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 0.0,
     "rotation": -110.0
   },
   "reversed": false,
-  "folder": "Depot Autos",
+  "folder": "Depot 2056 Auto",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": -90.0
+    "velocity": 0.5,
+    "rotation": 25.0
   },
   "useDefaultConstraints": true
 }

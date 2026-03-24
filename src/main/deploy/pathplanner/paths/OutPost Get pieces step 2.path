@@ -4,39 +4,46 @@
     {
       "anchor": {
         "x": 7.97241084165478,
-        "y": 5.5
+        "y": 2.5
       },
       "prevControl": null,
       "nextControl": {
         "x": 5.47241084165478,
-        "y": 5.5
+        "y": 2.4999999999999996
       },
-      "isLocked": false,
-      "linkedName": "End GetPieces step 1"
+      "isLocked": true,
+      "linkedName": "Outpost Get Pieces Step 1"
     },
     {
       "anchor": {
         "x": 6.225691868758916,
-        "y": 7.457
+        "y": 0.6096
       },
       "prevControl": {
         "x": 6.225691868758916,
-        "y": 6.457
+        "y": 1.6095999999999997
       },
       "nextControl": null,
-      "isLocked": false,
-      "linkedName": "End GetPieces step 2"
+      "isLocked": true,
+      "linkedName": "Outpost Get Pieces Step 2"
     }
   ],
   "rotationTargets": [
     {
       "waypointRelativePos": 0.6,
-      "rotationDegrees": 119.99999999999999
+      "rotationDegrees": -119.99999999999999
     }
   ],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "RunInake command",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": 1.0,
+      "command": null
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -50,10 +57,10 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Depot Autos",
+  "folder": "OutPost Autos",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -110.0
+    "rotation": 110.0
   },
   "useDefaultConstraints": true
 }

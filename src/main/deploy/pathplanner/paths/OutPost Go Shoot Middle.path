@@ -1,0 +1,66 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.225691868758916,
+        "y": 0.61
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.2256918687589158,
+        "y": 0.6100000000000007
+      },
+      "isLocked": false,
+      "linkedName": "Outpost Get Pieces Step 2"
+    },
+    {
+      "anchor": {
+        "x": 1.5713132530120486,
+        "y": 2.330277108433736
+      },
+      "prevControl": {
+        "x": 1.5713132530120486,
+        "y": 0.5802771084337359
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": null
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "RunInake command",
+      "waypointRelativePos": 0,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "RunInake command"
+        }
+      }
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "reversed": false,
+  "folder": "OutPost Autos",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "useDefaultConstraints": true
+}

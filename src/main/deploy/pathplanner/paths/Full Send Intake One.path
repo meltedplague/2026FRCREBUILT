@@ -1,0 +1,85 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 4.427,
+        "y": 0.61
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 9.427,
+        "y": 0.6100000000000018
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.86567469879518,
+        "y": 7.411662650602409
+      },
+      "prevControl": {
+        "x": 7.86567469879518,
+        "y": 0.41166265060240903
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Outpost Full Send"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.1551867219917025,
+      "rotationDegrees": 90.0
+    },
+    {
+      "waypointRelativePos": 0.47385892116182715,
+      "rotationDegrees": 119.99999999999999
+    },
+    {
+      "waypointRelativePos": 0.8970954356846434,
+      "rotationDegrees": 119.99999999999999
+    }
+  ],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [
+    {
+      "name": "Drop command",
+      "waypointRelativePos": 0.09,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Drop command"
+        }
+      }
+    },
+    {
+      "name": "RunInake command",
+      "waypointRelativePos": 0.42,
+      "endWaypointRelativePos": 1.0,
+      "command": null
+    }
+  ],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 180.0
+  },
+  "reversed": false,
+  "folder": "Full Send Auto",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": true
+}

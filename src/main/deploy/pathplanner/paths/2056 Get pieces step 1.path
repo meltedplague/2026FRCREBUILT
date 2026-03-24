@@ -31,7 +31,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.15138592750532862,
-      "rotationDegrees": 180.0
+      "rotationDegrees": -90.0
     },
     {
       "waypointRelativePos": 0.6268656716417927,
@@ -54,7 +54,30 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Drop command",
+      "waypointRelativePos": 0.08833746898262947,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Drop command"
+        }
+      }
+    },
+    {
+      "name": "RunInake command",
+      "waypointRelativePos": 0.59,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "RunInake command"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -64,11 +87,11 @@
     "unlimited": false
   },
   "goalEndState": {
-    "velocity": 0,
+    "velocity": 1.75,
     "rotation": -110.0
   },
   "reversed": false,
-  "folder": "Depot Autos",
+  "folder": "Depot 2056 Auto",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -90.0

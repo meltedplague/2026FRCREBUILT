@@ -164,7 +164,7 @@ private SmartMotorController smc =
   }
 
   public Command dropInatak() {
-    return intakePivot.set(.3).withTimeout(.5);
+    return intakePivot.set(.3).withTimeout(.6);
   }
 
   @Override

@@ -2,7 +2,14 @@
   "robotWidth": 0.832,
   "robotLength": 0.876,
   "holonomicMode": true,
-  "pathFolders": [],
+  "pathFolders": [
+    "Depot 2056 Auto",
+    "Depot Autos",
+    "Drive Out Autos",
+    "Full Send Auto",
+    "Outpost 2056 Auto",
+    "OutPost Autos"
+  ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

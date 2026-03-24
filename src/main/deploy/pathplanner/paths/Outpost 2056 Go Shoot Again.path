@@ -3,49 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.41,
-        "y": 7.391
+        "x": 6.4,
+        "y": 3.497
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.41,
-        "y": 7.391
+        "x": 7.299902653561156,
+        "y": 2.4245377796334306
       },
       "isLocked": false,
-      "linkedName": "Depot Start POS"
+      "linkedName": "Outpost 2056 Get Pieces cycle two END"
     },
     {
       "anchor": {
-        "x": 7.97241084165478,
-        "y": 5.5
+        "x": 2.9,
+        "y": 2.5
       },
       "prevControl": {
-        "x": 7.97241084165478,
-        "y": 7.5
+        "x": 2.6499999999999986,
+        "y": 2.5
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End GetPieces step 1"
+      "linkedName": "Outpost 2056 Go Shoot"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.15138592750532862,
-      "rotationDegrees": 180.0
-    },
-    {
-      "waypointRelativePos": 0.6268656716417927,
-      "rotationDegrees": -110.0
+      "waypointRelativePos": 0.28,
+      "rotationDegrees": -135.0
     }
   ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.4996623902768419,
-      "maxWaypointRelativePos": 1.0,
+      "minWaypointRelativePos": 0.32,
+      "maxWaypointRelativePos": 0.59,
       "constraints": {
-        "maxVelocity": 1.75,
-        "maxAcceleration": 3.0,
+        "maxVelocity": 2.0,
+        "maxAcceleration": 5.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
         "nominalVoltage": 12.0,
@@ -54,7 +50,19 @@
     }
   ],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "RunInake command",
+      "waypointRelativePos": 0.0,
+      "endWaypointRelativePos": 0.7970223325062054,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "RunInake command"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
@@ -65,13 +73,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -110.0
+    "rotation": -135.0
   },
   "reversed": false,
-  "folder": "Depot Autos",
+  "folder": "Outpost 2056 Auto",
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": -90.0
+    "velocity": 0.0,
+    "rotation": 110.0
   },
   "useDefaultConstraints": true
 }

@@ -175,11 +175,11 @@ public class Robot extends TimedRobot {
 
         if (controller.getRawButton(6)) {
             intake.set(1);
-            arm.set(.25);
+            arm.set(-.5);
         }
         else if (controller.getRawAxis(3) > .4) {
             intake.set(1);
-            arm.set(-.25);;
+            arm.set(.5);
         }
         // else if (controller.getRawButton(5)) { //
         //     shooter.runVelocity(-2680); //

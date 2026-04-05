@@ -3,32 +3,37 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.225691868758916,
-        "y": 7.457
+        "x": 7.972,
+        "y": 2.5
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.1334757845491055,
-        "y": 7.455152769319532
+        "x": 5.472,
+        "y": 2.5
       },
       "isLocked": false,
-      "linkedName": "End GetPieces step 2"
+      "linkedName": "Outpost 1 cycle get pieces"
     },
     {
       "anchor": {
-        "x": 3.068659058487874,
-        "y": 7.457
+        "x": 6.225691868758916,
+        "y": 0.609
       },
       "prevControl": {
-        "x": 2.818659743589274,
-        "y": 7.457585277908827
+        "x": 6.225691868758916,
+        "y": 0.359
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Shoot POS"
+      "linkedName": "Outpost 1 cycle END get pieces"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.28630705394190914,
+      "rotationDegrees": -119.99999999999999
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -45,10 +50,10 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Depot 1 Cycle",
+  "folder": "Outpost 1 Cycle",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 110.0
   },
   "useDefaultConstraints": true
 }

@@ -3,32 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.225691868758916,
-        "y": 7.457
+        "x": 3.155831325301205,
+        "y": 7.4
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.1334757845491055,
-        "y": 7.455152769319532
+        "x": 7.155831325301204,
+        "y": 7.4
       },
       "isLocked": false,
-      "linkedName": "End GetPieces step 2"
+      "linkedName": "new new new new point"
     },
     {
       "anchor": {
-        "x": 3.068659058487874,
-        "y": 7.457
+        "x": 8.051445783132529,
+        "y": 2.603
       },
       "prevControl": {
-        "x": 2.818659743589274,
-        "y": 7.457585277908827
+        "x": 8.051445783132529,
+        "y": 7.603
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Shoot POS"
+      "linkedName": null
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.009128630705395574,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 0.23651452282157995,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 0.78,
+      "rotationDegrees": -110.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -42,13 +55,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": -110.0
   },
   "reversed": false,
-  "folder": "Depot 1 Cycle",
+  "folder": null,
   "idealStartingState": {
-    "velocity": 0,
-    "rotation": 180.0
+    "velocity": 0.6,
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

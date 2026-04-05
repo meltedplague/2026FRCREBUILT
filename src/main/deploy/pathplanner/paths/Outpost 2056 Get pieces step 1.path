@@ -3,52 +3,64 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.225691868758916,
-        "y": 7.457
+        "x": 4.427,
+        "y": 0.609
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.1334757845491055,
-        "y": 7.455152769319532
+        "x": 4.719404454383737,
+        "y": 0.609
       },
       "isLocked": false,
-      "linkedName": "End GetPieces step 2"
+      "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.068659058487874,
-        "y": 7.457
+        "x": 7.199084337349397,
+        "y": 0.61
       },
       "prevControl": {
-        "x": 2.818659743589274,
-        "y": 7.457585277908827
+        "x": 6.949084337349397,
+        "y": 0.61
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Shoot POS"
+      "linkedName": "outpost 2056 get pieces"
     }
   ],
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "Drop command",
+      "waypointRelativePos": 0.34,
+      "endWaypointRelativePos": 1.0,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "Drop command"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 3.0,
     "maxAcceleration": 3.0,
     "maxAngularVelocity": 540.0,
     "maxAngularAcceleration": 720.0,
     "nominalVoltage": 12.0,
-    "unlimited": false
+    "unlimited": true
   },
   "goalEndState": {
-    "velocity": 0,
-    "rotation": 180.0
+    "velocity": 3.0,
+    "rotation": 90.0
   },
   "reversed": false,
-  "folder": "Depot 1 Cycle",
+  "folder": "Outpost 2056 Rush 3.27",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 180.0
+    "rotation": 90.0
   },
   "useDefaultConstraints": true
 }

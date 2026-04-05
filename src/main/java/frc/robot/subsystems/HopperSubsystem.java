@@ -25,11 +25,7 @@ import yams.motorcontrollers.remote.TalonFXWrapper;
 
 public class HopperSubsystem extends SubsystemBase {
 
-<<<<<<< Updated upstream
   private static final double HOPPER_SPEED = .99;
-=======
-  private static final double HOPPER_SPEED = .5;
->>>>>>> Stashed changes
   private static final double FEEDER_SPEED = 1.0;
 
   private TalonFX hopperMotor = new TalonFX(9);
@@ -41,11 +37,7 @@ public class HopperSubsystem extends SubsystemBase {
       .withGearing(new MechanismGearing(GearBox.fromReductionStages(4))) // 4:1 gear reduction
       .withMotorInverted(true)
       .withIdleMode(MotorMode.BRAKE)
-<<<<<<< Updated upstream
-      .withStatorCurrentLimit(Amps.of(30));
-=======
-      .withStatorCurrentLimit(Amps.of(25));
->>>>>>> Stashed changes
+      .withStatorCurrentLimit(Amps.of(35));
 
   private SmartMotorController smc = new TalonFXWrapper(hopperMotor, DCMotor.getKrakenX60(1), smcConfig);
 
@@ -64,7 +56,7 @@ public class HopperSubsystem extends SubsystemBase {
       .withGearing(new MechanismGearing(GearBox.fromReductionStages(4))) // 4:1 gear reduction
       .withMotorInverted(false)
       .withIdleMode(MotorMode.BRAKE)
-      .withStatorCurrentLimit(Amps.of(20));
+      .withStatorCurrentLimit(Amps.of(15));
 
   private SmartMotorController smcFeeder = new TalonFXWrapper(feederMotor, DCMotor.getKrakenX60(1), smcFeederConfig);
 

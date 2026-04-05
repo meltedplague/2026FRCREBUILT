@@ -4,28 +4,28 @@
     {
       "anchor": {
         "x": 6.225691868758916,
-        "y": 7.457
+        "y": 0.609
       },
       "prevControl": null,
       "nextControl": {
         "x": 4.1334757845491055,
-        "y": 7.455152769319532
+        "y": 0.6071527693195318
       },
       "isLocked": false,
-      "linkedName": "End GetPieces step 2"
+      "linkedName": "Outpost 1 cycle END get pieces"
     },
     {
       "anchor": {
         "x": 3.068659058487874,
-        "y": 7.457
+        "y": 0.609
       },
       "prevControl": {
         "x": 2.818659743589274,
-        "y": 7.457585277908827
+        "y": 0.6095852779088275
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Shoot POS"
+      "linkedName": "Outpost Shoot POS"
     }
   ],
   "rotationTargets": [],
@@ -45,7 +45,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Depot 1 Cycle",
+  "folder": "Outpost 1 Cycle",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

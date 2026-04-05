@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.225691868758916,
-        "y": 7.457
+        "x": 6.5,
+        "y": 7.391
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.1334757845491055,
-        "y": 7.455152769319532
+        "x": 7.256259220862306,
+        "y": 7.383875037407515
       },
       "isLocked": false,
-      "linkedName": "End GetPieces step 2"
+      "linkedName": "Q Match line up trench"
     },
     {
       "anchor": {
@@ -20,8 +20,8 @@
         "y": 7.457
       },
       "prevControl": {
-        "x": 2.818659743589274,
-        "y": 7.457585277908827
+        "x": 2.654382164401484,
+        "y": 7.457226379758645
       },
       "nextControl": null,
       "isLocked": false,
@@ -45,7 +45,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": "Depot 1 Cycle",
+  "folder": null,
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

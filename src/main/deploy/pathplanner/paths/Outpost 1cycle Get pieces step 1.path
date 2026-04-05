@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.427218259629101,
-        "y": 7.391
+        "x": 4.427,
+        "y": 0.609
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.4272182596291,
-        "y": 7.391
+        "x": 8.427,
+        "y": 0.609
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.97241084165478,
-        "y": 5.5
+        "x": 7.972,
+        "y": 2.5
       },
       "prevControl": {
-        "x": 7.97241084165478,
-        "y": 7.5
+        "x": 7.972,
+        "y": 0.5
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "End GetPieces step 1"
+      "linkedName": "Outpost 1 cycle get pieces"
     }
   ],
   "rotationTargets": [
@@ -35,7 +35,7 @@
     },
     {
       "waypointRelativePos": 0.6268656716417927,
-      "rotationDegrees": -110.0
+      "rotationDegrees": 110.0
     }
   ],
   "constraintZones": [
@@ -57,7 +57,7 @@
   "eventMarkers": [
     {
       "name": "Drop command",
-      "waypointRelativePos": 0.11612903225806441,
+      "waypointRelativePos": 0.13,
       "endWaypointRelativePos": 0.6,
       "command": {
         "type": "named",
@@ -67,15 +67,10 @@
       }
     },
     {
-      "name": "Intaking hard",
+      "name": "RunInake command",
       "waypointRelativePos": 0.6,
       "endWaypointRelativePos": 1.0,
-      "command": {
-        "type": "named",
-        "data": {
-          "name": "RunInake command"
-        }
-      }
+      "command": null
     }
   ],
   "globalConstraints": {
@@ -88,10 +83,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -110.0
+    "rotation": 110.0
   },
   "reversed": false,
-  "folder": "Depot 1 Cycle",
+  "folder": "Outpost 1 Cycle",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 180.0

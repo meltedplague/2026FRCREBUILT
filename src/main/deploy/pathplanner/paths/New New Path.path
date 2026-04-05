@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 6.225691868758916,
+        "x": 3.068659058487874,
         "y": 7.457
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.1334757845491055,
-        "y": 7.455152769319532
+        "x": 2.9609035363199068,
+        "y": 7.154868865219976
       },
       "isLocked": false,
-      "linkedName": "End GetPieces step 2"
+      "linkedName": "Shoot POS"
     },
     {
       "anchor": {
-        "x": 3.068659058487874,
-        "y": 7.457
+        "x": 2.511096385542168,
+        "y": 6.154975903614457
       },
       "prevControl": {
-        "x": 2.818659743589274,
-        "y": 7.457585277908827
+        "x": 2.4106627452727754,
+        "y": 5.926036863906857
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Shoot POS"
+      "linkedName": "depot 1 cycle line up shot"
     }
   ],
   "rotationTargets": [],

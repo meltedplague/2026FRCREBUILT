@@ -20,6 +20,7 @@ import edu.wpi.first.math.VecBuilder;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DataLogManager;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.PS4Controller.Axis;
@@ -72,6 +73,9 @@ public class Robot extends TimedRobot {
 
     public Robot() {
         SmartDashboard.putData("robotpose", fieldPose);
+
+        DataLogManager.logNetworkTables(true);
+        DataLogManager.start();
     }
 
     @Override

@@ -50,7 +50,7 @@
     "rotation": 180.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Depot 1 Cycle",
   "idealStartingState": {
     "velocity": 0,
     "rotation": -110.0

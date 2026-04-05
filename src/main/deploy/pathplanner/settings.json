@@ -2,7 +2,12 @@
   "robotWidth": 0.832,
   "robotLength": 0.876,
   "holonomicMode": true,
-  "pathFolders": [],
+  "pathFolders": [
+    "Depot 1 Cycle",
+    "Detpot 2056 Rush 3.27",
+    "Outpost 1 Cycle",
+    "Outpost 2056 Rush 3.27"
+  ],
   "autoFolders": [],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,

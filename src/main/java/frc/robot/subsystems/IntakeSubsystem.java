@@ -52,7 +52,7 @@ private SmartMotorControllerConfig smcConfig = new SmartMotorControllerConfig(th
     .withGearing(new MechanismGearing(GearBox.fromReductionStages(1)))
     .withMotorInverted(true)
     .withIdleMode(MotorMode.COAST)
-    .withStatorCurrentLimit(Amps.of(30));
+    .withStatorCurrentLimit(Amps.of(35));
 
 private SmartMotorController smc =
     new TalonFXWrapper(rollerMotor, DCMotor.getFalcon500(1), smcConfig);
@@ -78,7 +78,7 @@ private SmartMotorController smc =
       .withMotorInverted(false)
       .withIdleMode(MotorMode.COAST)
       .withSoftLimit(Degrees.of(0), Degrees.of(150))
-      .withStatorCurrentLimit(Amps.of(30))
+      .withStatorCurrentLimit(Amps.of(25))
       .withClosedLoopRampRate(Seconds.of(0.1))
       .withOpenLoopRampRate(Seconds.of(0.1));
 
@@ -108,6 +108,20 @@ private SmartMotorController smc =
     return intake.set(INTAKE_SPEED).finallyDo(() -> smc.setDutyCycle(0)).withName("Intake.Run");
   }
 
+  /**
+   * Command to run the intake while held.
+   */
+  public Command intakeWithPressureCommand() {
+    return Commands.runEnd(
+      () -> {
+        intake.setDutyCycleSetpoint(INTAKE_SPEED);
+        intakePivot.setDutyCycleSetpoint(0.1);
+      },
+      () -> {
+        smc.setDutyCycle(0);
+        smc.setDutyCycle(0);
+      });
+  }
   /**
    * Command to eject while held.
    */
@@ -164,7 +178,11 @@ private SmartMotorController smc =
   }
 
   public Command dropInatak() {
-    return intakePivot.set(.3).withTimeout(.5);
+    return intakePivot.set(.4).withTimeout(.5);
+  }
+
+  public Command pickUpInatak() {
+    return intakePivot.set(-.25).withTimeout(.5);
   }
 
   @Override

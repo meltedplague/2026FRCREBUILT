@@ -162,8 +162,8 @@ public class ShootOnTheMoveCommand extends Command
     for (int i = 0; i < 20; i++)
     {
       timeOfFlight = inAllianceZone  ? timeOfFlightMap.get(Meters.of(lookaheadTurretToTargetDistance).in(Inches)) : passTOF(Meters.of(lookaheadTurretToTargetDistance).in(Inches));
-      double offsetX = turretVelocity.vxMetersPerSecond * timeOfFlight;
-      double offsetY = turretVelocity.vyMetersPerSecond * timeOfFlight;
+      double offsetX = turretVelocity.vxMetersPerSecond * timeOfFlight * .25;
+      double offsetY = turretVelocity.vyMetersPerSecond * timeOfFlight * .25;
       lookaheadPose =
           new Pose2d(
               turretPosition.getTranslation().plus(new Translation2d(offsetX, offsetY)),
@@ -175,7 +175,7 @@ public class ShootOnTheMoveCommand extends Command
     // turretAngle = target.minus(lookaheadPose.getTranslation()).getAngle();
     Rotation2d fieldangletotarget = target.minus(lookaheadPose.getTranslation()).getAngle();
     Rotation2d robotrelativeturretangle = fieldangletotarget.minus(robotPose.getRotation());
-    turretAngle =Rotation2d.fromRadians(MathUtil.angleModulus(robotrelativeturretangle.getRadians()));
+    turretAngle = Rotation2d.fromRadians(MathUtil.angleModulus(robotrelativeturretangle.getRadians() + Math.PI));
     SmartDashboard.putNumber("Turret Angle", turretAngle.getDegrees());
     if (lastTurretAngle == null) {lastTurretAngle = turretAngle;}
     lastTurretAngle = turretAngle;

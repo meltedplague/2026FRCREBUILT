@@ -1,0 +1,73 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 6.565277108433736,
+        "y": 3.25
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 6.565277108433736,
+        "y": 2.1108839333006117
+      },
+      "isLocked": false,
+      "linkedName": "Outpost 2056 Get pieces cycle 2"
+    },
+    {
+      "anchor": {
+        "x": 2.838927710843373,
+        "y": 2.3193493975903605
+      },
+      "prevControl": {
+        "x": 1.9974939759036148,
+        "y": 2.6253253012048186
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Outpost 2056 go shoot"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.23817427385891793,
+      "rotationDegrees": -135.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.2570719602977653,
+      "maxWaypointRelativePos": 0.5846153846153844,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -135.0
+  },
+  "reversed": false,
+  "folder": "Outpost 2056 Rush 3.27",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 110.0
+  },
+  "useDefaultConstraints": true
+}

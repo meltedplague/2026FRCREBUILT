@@ -51,7 +51,7 @@ public class ShooterSubsystem extends SubsystemBase
       .withGearing(new MechanismGearing(GearBox.fromReductionStages(1)))
       .withMotorInverted(false)
       .withIdleMode(MotorMode.COAST)
-      .withStatorCurrentLimit(Amps.of(15));
+      .withStatorCurrentLimit(Amps.of(40));
 
   private final SmartMotorController       motor                  = new TalonFXWrapper(leaderMotor,
                                                                                     DCMotor.getKrakenX60(2),

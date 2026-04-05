@@ -59,12 +59,12 @@ private static final double ACCEL_DEG_PER_SEC_SQ = 2440.0;
   public final Translation3d turretTranslation = new Translation3d(0.205, 0, 0.375);
   private final TalonFX                   turretMotor       = new TalonFX(10);//, MotorType.kBrushless);
   private final SmartMotorControllerConfig motorConfig      = new SmartMotorControllerConfig(this)
-      .withClosedLoopController(20, 0, 0, DegreesPerSecond.of(CRUISE_VEL_DEG_PER_SEC), DegreesPerSecondPerSecond.of(ACCEL_DEG_PER_SEC_SQ)) //TODO You need to tune kP
+      .withClosedLoopController(15, 0, 0, DegreesPerSecond.of(CRUISE_VEL_DEG_PER_SEC), DegreesPerSecondPerSecond.of(ACCEL_DEG_PER_SEC_SQ)) //TODO You need to tune kP
       .withSoftLimit(Degrees.of(-MAX_ONE_DIR_FOV), Degrees.of(MAX_ONE_DIR_FOV))
       .withGearing(new MechanismGearing(30.0))
       .withIdleMode(MotorMode.COAST)
       .withTelemetry("TurretMotor", TelemetryVerbosity.HIGH)
-      .withStatorCurrentLimit(Amps.of(25))
+      .withStatorCurrentLimit(Amps.of(15))
       .withMotorInverted(true)
       .withClosedLoopRampRate(Seconds.of(0.1))
       .withOpenLoopRampRate(Seconds.of(0.1))

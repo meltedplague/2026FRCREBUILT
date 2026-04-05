@@ -69,6 +69,12 @@ public class RobotContainer {
 
     public RobotContainer() {
         
+        NamedCommands.registerCommand("Drop command", intake.dropInatak());
+        NamedCommands.registerCommand("Pick up command", intake.pickUpInatak());
+        NamedCommands.registerCommand("RunInake command", intake.intakeCommand());
+        NamedCommands.registerCommand("Intaking hard", intake.intakeWithPressureCommand());
+        NamedCommands.registerCommand("Shoot command", shootCommand);
+        
         configureBindings();
         autoChooser = AutoBuilder.buildAutoChooser();
          autoChooser.addOption(
@@ -79,9 +85,6 @@ public class RobotContainer {
             shooter.sysIdDynamicLeft(SysIdRoutine.Direction.kForward),
             shooter.sysIdDynamicLeft(SysIdRoutine.Direction.kReverse)));
 
-        NamedCommands.registerCommand("Drop command", intake.dropInatak());
-        NamedCommands.registerCommand("RunInake command", intake.intakeCommand());
-        NamedCommands.registerCommand("Shoot command", shootCommand);
 
         //put named command stuff here
         SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -91,7 +94,6 @@ public class RobotContainer {
 
         joystick.b().whileTrue(Commands.runOnce(() -> slowDownDriving = true).andThen(shootCommand)).whileFalse(Commands.runOnce(() -> slowDownDriving = false));
 
-
         // joystick.b().whileTrue(shootNoTurretCommand);
 
         // joystick.x().whileTrue(ShooterSubsystem.setVelocitySetpoint(2000));
@@ -99,6 +101,10 @@ public class RobotContainer {
         joystick.x().whileTrue(intake.backFeedAndRollCommand());
 
         joystick.y().whileTrue(hopper.backFeedCommand());
+
+        joystick.povLeft().whileTrue(Commands.runEnd(() -> turret.turretSetDutyCycle(0.25), () -> turret.turretSetDutyCycle(0.0)));
+        
+        joystick.povRight().whileTrue(Commands.runEnd(() -> turret.turretSetDutyCycle(-0.25), () -> turret.turretSetDutyCycle(0.0)));
 
         //if your going to add the intake command then please disable the simple code in robot.java
 
@@ -110,6 +116,7 @@ public class RobotContainer {
 
         // Note that X is defined as forward according to WPILib convention,
         // and Y is defined as to the left according to WPILib convention.
+
         drivetrain.setDefaultCommand(
             drivetrain.applyRequest(() -> {
                 // If shooting, drive at half speed

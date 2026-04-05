@@ -1,0 +1,73 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 8.051445783132529,
+        "y": 4.603240963855422
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 8.051445783132529,
+        "y": 5.74235703055481
+      },
+      "isLocked": false,
+      "linkedName": "depot 2056 end getpieces cycle 2"
+    },
+    {
+      "anchor": {
+        "x": 2.838927710843373,
+        "y": 5.681
+      },
+      "prevControl": {
+        "x": 1.9974934070475565,
+        "y": 5.98697433925577
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "Depot 2056 go shoot"
+    }
+  ],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 0.4091286307053896,
+      "rotationDegrees": 135.0
+    }
+  ],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0.41389578163771007,
+      "maxWaypointRelativePos": 0.6600496277915615,
+      "constraints": {
+        "maxVelocity": 1.5,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": 135.0
+  },
+  "reversed": false,
+  "folder": "Detpot 2056 Rush 3.27",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": -110.0
+  },
+  "useDefaultConstraints": true
+}
